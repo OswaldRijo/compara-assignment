@@ -6,7 +6,7 @@ class Product {
   }
 }
 
-class Rule {
+class AbstractRule {
   constructor(product) {
     this.product = product;
   }
@@ -16,7 +16,7 @@ class Rule {
   }
 }
 
-class CommonRule extends Rule {
+class CommonRule extends AbstractRule {
   constructor(product) {
     super(product);
   }
@@ -38,7 +38,7 @@ class CommonRule extends Rule {
   execute() {
     super.execute()
     if (this.product.sellIn < 0){
-      this.decreasePrice()
+      this.doubleDecrease()
     } else {
       this.decreasePrice()
     }
@@ -46,7 +46,7 @@ class CommonRule extends Rule {
 }
 
 
-class FullCoverageRule extends Rule{
+class FullCoverageRule extends AbstractRule{
   constructor(product) {
     super(product);
   }
@@ -55,12 +55,31 @@ class FullCoverageRule extends Rule{
     return 'Full Coverage';
   }
 
+  increasePrice(){
+    if (this.product.price < 50) {
+      this.product.price++;
+    }
+  }
+
+  doubleIncreasePrice(){
+    if (this.product.price < 49) {
+      this.product.price+= 2;
+    } else {
+      this.increasePrice();
+    }
+  }
+
   execute() {
     super.execute();
+    if (this.product.sellIn < 0) {
+      this.doubleIncreasePrice();
+    } else {
+      this.increasePrice();
+    }
   }
 }
 
-class MegaCoverageRule extends Rule{
+class MegaCoverageRule extends AbstractRule{
   constructor(product) {
     super(product);
   }
