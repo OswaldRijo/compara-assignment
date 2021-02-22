@@ -6,6 +6,14 @@ const Product = coTest.Product;
 
 describe("Co Test", function() {
 
+  describe('Car Insurance', ()=>{
+    it("should have no products", ()=>{
+      const carInsurance = new CarInsurance();
+      const products = carInsurance.updatePrice()
+      expect(products.length).equal(0);
+    })
+  })
+
   describe('Common Coverage', ()=>{
     it("should decrease sellIn and price", ()=>{
       const carInsurance = new CarInsurance([ new Product('Medium Coverage', 10, 20) ]);
@@ -136,6 +144,11 @@ describe("Co Test", function() {
       const products = carInsurance.updatePrice()
       expect(products[0].sellIn).equal(-2);
       expect(products[0].price).equal(0);
+
+      const carInsurance_1 = new CarInsurance([ new Product('Super Sale', 1, 1) ]);
+      const products_1 = carInsurance_1.updatePrice()
+      expect(products_1[0].sellIn).equal(0);
+      expect(products_1[0].price).equal(0);
     })
   })
 });
