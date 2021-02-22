@@ -36,6 +36,7 @@ class CommonRule extends Rule {
   }
 
   execute() {
+    super.execute()
     if (this.product.sellIn < 0){
       this.decreasePrice()
     } else {
