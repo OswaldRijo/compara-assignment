@@ -101,7 +101,7 @@ class SpecialFullCoverageRule extends FullCoverageRule{
   }
 
   execute() {
-    super.execute();
+    this.product.sellIn--;
     this.increasePrice();
     if (this.product.sellIn < 11) {
       this.increasePrice();
@@ -109,6 +109,8 @@ class SpecialFullCoverageRule extends FullCoverageRule{
     if (this.product.sellIn < 6) {
       this.increasePrice();
     }
+    if (this.product.sellIn <= 0)
+      this.product.price = 0;
   }
 }
 

@@ -75,4 +75,34 @@ describe("Co Test", function() {
     })
   })
 
+  describe('Special Full Coverage', ()=>{
+    it("should decrease sellIn and increase price by one", ()=>{
+      const carInsurance = new CarInsurance([ new Product('Special Full Coverage', 12, 10) ]);
+      const products = carInsurance.updatePrice()
+      expect(products[0].sellIn).equal(11);
+      expect(products[0].price).equal(11);
+    })
+
+    it("should decrease sellIn and increase price by two", ()=>{
+      const carInsurance = new CarInsurance([ new Product('Special Full Coverage', 11, 10) ]);
+      const products = carInsurance.updatePrice()
+      expect(products[0].sellIn).equal(10);
+      expect(products[0].price).equal(12);
+    })
+
+    it("should decrease sellIn and increase price by three", ()=>{
+      const carInsurance = new CarInsurance([ new Product('Special Full Coverage', 6, 10) ]);
+      const products = carInsurance.updatePrice()
+      expect(products[0].sellIn).equal(5);
+      expect(products[0].price).equal(13);
+    })
+
+    it("should decrease sellIn and should set price as zero", ()=>{
+      const carInsurance = new CarInsurance([ new Product('Special Full Coverage', -1, 49) ]);
+      const products = carInsurance.updatePrice()
+      expect(products[0].sellIn).equal(-2);
+      expect(products[0].price).equal(0);
+    })
+  })
+
 });
