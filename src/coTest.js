@@ -12,6 +12,7 @@ class Rule {
   }
 
   execute(){
+    this.product.sellIn--;
   }
 }
 
@@ -20,7 +21,27 @@ class CommonRule extends Rule {
     super(product);
   }
 
-  execute() {}
+  decreasePrice(){
+    if (this.product.price > 0){
+      this.product.price--;
+    }
+  }
+
+  doubleDecrease(){
+    if (this.product.price > 1 ){
+      this.product.price -= 2
+    } else {
+      this.decreasePrice();
+    }
+  }
+
+  execute() {
+    if (this.product.sellIn < 0){
+      this.decreasePrice()
+    } else {
+      this.decreasePrice()
+    }
+  }
 }
 
 
