@@ -4,6 +4,30 @@ class Product {
     this.sellIn = sellIn;
     this.price = price;
   }
+
+  getSellIn(){
+    return this.sellIn;
+  }
+
+  decreaseSellIn(){
+    return this.sellIn --;
+  }
+
+  setPrice( n ){
+    this.price = n;
+  }
+
+  getPrice () {
+    return this.price;
+  }
+
+  decreasePriceBy( n ){
+    this.price -= n;
+  }
+
+  increasePriceBy ( n ) {
+    this.price += n
+  }
 }
 
 class AbstractRule {
@@ -11,8 +35,12 @@ class AbstractRule {
     this.product = product;
   }
 
+  decreaseSellIn(){
+    this.product.decreaseSellIn()
+  }
+
   execute(){
-    this.product.sellIn--;
+    this.decreaseSellIn();
   }
 }
 
@@ -22,14 +50,14 @@ class CommonRule extends AbstractRule {
   }
 
   decreasePrice(){
-    if (this.product.price > 0){
-      this.product.price--;
+    if (this.product.getPrice() > 0){
+      this.product.decreasePriceBy( 1 );
     }
   }
 
   doubleDecrease(){
-    if (this.product.price > 1 ){
-      this.product.price -= 2
+    if (this.product.getPrice() > 1 ){
+      this.product.decreasePriceBy(2)
     } else {
       this.decreasePrice();
     }
@@ -37,7 +65,7 @@ class CommonRule extends AbstractRule {
 
   execute() {
     super.execute()
-    if (this.product.sellIn < 0){
+    if (this.product.getSellIn() < 0){
       this.doubleDecrease()
     } else {
       this.decreasePrice()
@@ -56,14 +84,14 @@ class FullCoverageRule extends AbstractRule{
   }
 
   increasePrice(){
-    if (this.product.price < 50) {
-      this.product.price++;
+    if (this.product.getPrice() < 50) {
+      this.product.increasePriceBy( 1 );
     }
   }
 
   doubleIncreasePrice(){
-    if (this.product.price < 49) {
-      this.product.price+= 2;
+    if (this.product.getPrice() < 49) {
+      this.product.increasePriceBy(2);
     } else {
       this.increasePrice();
     }
@@ -71,7 +99,7 @@ class FullCoverageRule extends AbstractRule{
 
   execute() {
     super.execute();
-    if (this.product.sellIn < 0) {
+    if (this.product.getSellIn() < 0) {
       this.doubleIncreasePrice();
     } else {
       this.increasePrice();
@@ -101,16 +129,16 @@ class SpecialFullCoverageRule extends FullCoverageRule{
   }
 
   execute() {
-    this.product.sellIn--;
+    this.decreaseSellIn();
     this.increasePrice();
-    if (this.product.sellIn < 11) {
+    if (this.product.getSellIn() < 11) {
       this.increasePrice();
     }
-    if (this.product.sellIn < 6) {
+    if (this.product.getSellIn() < 6) {
       this.increasePrice();
     }
-    if (this.product.sellIn <= 0)
-      this.product.price = 0;
+    if (this.product.getSellIn() <= 0)
+      this.product.setPrice(0);
   }
 }
 
@@ -124,24 +152,24 @@ class SuperSaleRule extends AbstractRule{
   }
 
   decreasePrice(){
-    if (this.product.price > 1) {
-      this.product.price -= 2;
-    } else if (this.product.price === 1) {
-      this.product.price -= 1;
+    if (this.product.getPrice() > 1) {
+      this.product.decreasePriceBy(2);
+    } else {
+      this.product.decreasePriceBy(this.product.getPrice());
     }
   }
 
   doubleDecreasePrice(){
-    if (this.product.price > 3) {
-      this.product.price -= 4;
-    } else if (this.product.price === 1) {
-      this.product.price -= 1;
+    if (this.product.getPrice() > 3) {
+      this.product.decreasePriceBy(4);
+    } else {
+      this.product.decreasePriceBy(this.product.getPrice());
     }
   }
 
   execute() {
     super.execute();
-    if (this.product.sellIn >= 0) {
+    if (this.product.getSellIn() >= 0) {
       this.decreasePrice();
     } else {
       this.doubleDecreasePrice();
