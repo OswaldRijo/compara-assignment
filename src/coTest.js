@@ -6,10 +6,97 @@ class Product {
   }
 }
 
+class Rule {
+  constructor(product) {
+    this.product = product;
+  }
+
+  execute(){
+  }
+}
+
+class CommonRule extends Rule {
+  constructor(product) {
+    super(product);
+  }
+
+  execute() {}
+}
+
+
+class FullCoverageRule extends Rule{
+  constructor(product) {
+    super(product);
+  }
+
+  static relatedProductName (){
+    return 'Full Coverage';
+  }
+
+  execute() {
+    super.execute();
+  }
+}
+
+class MegaCoverageRule extends Rule{
+  constructor(product) {
+    super(product);
+  }
+
+  static relatedProductName (){
+    return 'Mega Coverage';
+  }
+
+  execute() {}
+}
+
+class SpecialFullCoverageRule extends FullCoverageRule{
+  constructor(product) {
+    super(product);
+  }
+
+  static relatedProductName (){
+    return 'Special Full Coverage';
+  }
+
+}
+
+class SuperSaleRule extends Rule{
+  constructor(product) {
+    super(product);
+  }
+
+  static relatedProductName (){
+    return 'Super Sale';
+  }
+
+  execute() {
+    super.execute();
+
+  }
+}
+
+
 class CarInsurance {
   constructor(products = []) {
     this.products = products;
   }
+
+  getRuleBy(product){
+    switch (product.name){
+      case FullCoverageRule.relatedProductName():
+        return new FullCoverageRule(product);
+      case MegaCoverageRule.relatedProductName():
+        return new MegaCoverageRule(product);
+      case SpecialFullCoverageRule.relatedProductName():
+        return new SpecialFullCoverageRule(product);
+      case SuperSaleRule.relatedProductName():
+        return new SuperSaleRule(product);
+      default:
+        return new CommonRule(product);
+    }
+  }
+
   updatePrice() {
     for (var i = 0; i < this.products.length; i++) {
       if (this.products[i].name != 'Full Coverage' && this.products[i].name != 'Special Full Coverage') {
