@@ -98,6 +98,13 @@ class CarInsurance {
   }
 
   updatePrice() {
+    this.products = this.products.map((product) => {
+      const productRule = this.getRuleBy(product);
+      productRule.execute();
+
+      return product;
+    });
+
     for (var i = 0; i < this.products.length; i++) {
       if (this.products[i].name != 'Full Coverage' && this.products[i].name != 'Special Full Coverage') {
         if (this.products[i].price > 0) {
