@@ -1,0 +1,32 @@
+{
+  "name": "test-software-engineer",
+  "version": "1.0.0",
+  "description": "ComparaOnline Software Engineer Test",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "nyc --reporter=text-summary  ./node_modules/mocha/bin/mocha ./spec/*.js",
+    "after-30-days": "node ./src/main.js",
+    "test-coverage-table": "nyc  ./node_modules/mocha/bin/mocha ./spec/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/comparaonline/test-software-engineer.git"
+  },
+  "keywords": [
+    "comparaonline",
+    "test",
+    "software",
+    "engineer"
+  ],
+  "author": "Oswald RIjo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/comparaonline/test-software-engineer/issues"
+  },
+  "homepage": "https://github.com/comparaonline/test-software-engineer#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.1.3",
+    "nyc": "^15.1.0"
+  }
+}
