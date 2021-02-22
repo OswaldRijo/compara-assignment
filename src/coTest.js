@@ -177,7 +177,6 @@ class SuperSaleRule extends AbstractRule{
   }
 }
 
-
 class CarInsurance {
   constructor(products = []) {
     this.products = products;
