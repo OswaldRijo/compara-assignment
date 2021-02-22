@@ -100,6 +100,16 @@ class SpecialFullCoverageRule extends FullCoverageRule{
     return 'Special Full Coverage';
   }
 
+  execute() {
+    super.execute();
+    this.increasePrice();
+    if (this.product.sellIn < 11) {
+      this.increasePrice();
+    }
+    if (this.product.sellIn < 6) {
+      this.increasePrice();
+    }
+  }
 }
 
 class SuperSaleRule extends Rule{
