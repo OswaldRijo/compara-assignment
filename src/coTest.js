@@ -112,7 +112,7 @@ class SpecialFullCoverageRule extends FullCoverageRule{
   }
 }
 
-class SuperSaleRule extends Rule{
+class SuperSaleRule extends AbstractRule{
   constructor(product) {
     super(product);
   }
