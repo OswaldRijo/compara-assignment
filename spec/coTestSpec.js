@@ -105,4 +105,37 @@ describe("Co Test", function() {
     })
   })
 
+  describe('Super Sale', ()=>{
+    it("should decrease sellIn and price", ()=>{
+      const carInsurance = new CarInsurance([ new Product('Super Sale', 10, 20) ]);
+      const products = carInsurance.updatePrice()
+      expect(products[0].sellIn).equal(9);
+      expect(products[0].price).equal(18);
+    })
+    it("should decrease sellIn and price twice faster", ()=>{
+      const carInsurance = new CarInsurance([ new Product('Super Sale', 0, 20) ]);
+      const products = carInsurance.updatePrice()
+      expect(products[0].sellIn).equal(-1);
+      expect(products[0].price).equal(16);
+    })
+
+    it("should decrease sellIn and should not decrease price", ()=>{
+      const carInsurance = new CarInsurance([ new Product('Super Sale', -1, 0) ]);
+      const products = carInsurance.updatePrice()
+      expect(products[0].sellIn).equal(-2);
+      expect(products[0].price).equal(0);
+
+      const carInsurance_1 = new CarInsurance([ new Product('Super Sale', 5, 0) ]);
+      const products_1 = carInsurance_1.updatePrice()
+      expect(products_1[0].sellIn).equal(4);
+      expect(products_1[0].price).equal(0);
+    })
+
+    it("should decrease sellIn and should decrease price by 1", ()=>{
+      const carInsurance = new CarInsurance([ new Product('Super Sale', -1, 1) ]);
+      const products = carInsurance.updatePrice()
+      expect(products[0].sellIn).equal(-2);
+      expect(products[0].price).equal(0);
+    })
+  })
 });
