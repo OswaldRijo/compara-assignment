@@ -58,4 +58,21 @@ describe("Co Test", function() {
     })
   })
 
+  describe('Mega Coverage', ()=>{
+    it("should not change sellIn and price", ()=>{
+      const carInsurance = new CarInsurance([ new Product('Mega Coverage', 1, 80) ]);
+      const products = carInsurance.updatePrice()
+
+      expect(products[0].sellIn).equal(1);
+      expect(products[0].price).equal(80);
+
+
+      const carInsurance_1 = new CarInsurance([ new Product('Mega Coverage', 0, 80) ]);
+      const products_1 = carInsurance_1.updatePrice()
+
+      expect(products_1[0].sellIn).equal(0);
+      expect(products_1[0].price).equal(80);
+    })
+  })
+
 });
